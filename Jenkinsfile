@@ -8,9 +8,12 @@ pipeline {
             }
         }
         stage('Build') {
-            steps {
-                echo 'Compiling the application...'
-                sh 'gcc -o calculator calculator.c test_calculator.c -lcunit'
+                    environment {
+                        PATH = "/opt/homebrew/bin:${env.PATH}"
+                    }
+                    steps {
+                        echo 'Compiling the application...'
+                        sh 'gcc -o calculator calculator.c test_calculator.c -I/opt/homebrew/include -L/opt/homebrew/lib -lcunit'
             }
         }
         stage('Test') {
